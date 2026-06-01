@@ -1,11 +1,11 @@
 cask "vew" do
   arch arm: "arm64", intel: "x64"
-  version "0.0.9"
+  version "0.1.0"
 
   if Hardware::CPU.arm?
-    sha256 "2c8b12b2b89b247642bb9ffa27142f9b8483485e684555109356b96a41ec9bf0"
+    sha256 "0fc6a4b3fae7030acc9043b59f887d04a09bc8b2bbb85770ab354db6afacc580"
   else
-    sha256 "51067f2c9f37c96cd1027ea897bccf63309138e098631c9f1be30da41c9e2ae5"
+    sha256 "50be7ddfa7dbe5954c76a4d5f2da4fb4bf3c25bd134cee0d81c5d3caa12ba834"
   end
 
   url "https://downloads.vew.sh/vew-darwin-#{arch}-#{version}.zip"
