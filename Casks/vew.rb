@@ -1,5 +1,5 @@
 cask "vew" do
-  version "0.9.2"
+  version "0.9.3"
 
   # mac-x64 (Intel) was deprecated in the v0.8 series; the cask now ships
   # the arm64 binary to every Mac. Intel users get it via Rosetta 2.
