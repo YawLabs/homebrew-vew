@@ -12,6 +12,18 @@ cask "vew" do
 
   app "vew.app"
 
+  # vew is ad-hoc signed, not notarized, so Homebrew's download-quarantine bit
+  # trips Gatekeeper -- and `brew upgrade --cask vew` re-applies the bit on EVERY
+  # upgrade, not just first install. Strip it after each install/upgrade so the
+  # app launches without a manual `xattr -cr`. Remove this once the app is
+  # notarized (the real fix; see install/release notes). Mirrors the postflight
+  # in homebrew-yaw/Casks/yaw.rb.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/vew.app"],
+                   must_succeed: false
+  end
+
   zap trash: [
     "~/Library/Application Support/vew",
     "~/Library/Preferences/com.vew.app.plist",
