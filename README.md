@@ -6,11 +6,13 @@ Homebrew tap for [vew](https://vew.sh) — a browser, with an agent built in.
 
 ```
 brew tap yawlabs/vew
+brew trust yawlabs/vew   # Homebrew 5.1+ refuses casks from untrusted third-party taps
 brew install --cask vew
 ```
 
-> On Homebrew older than 5.1 the `install-mac.sh` one-liner handles the
-> tap automatically.
+> On Homebrew older than 5.1 the `brew trust` line is unnecessary (and the
+> command does not exist); skip it. The `install-mac.sh` one-liner handles this
+> automatically.
 
 ## Update
 
