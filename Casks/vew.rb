@@ -1,9 +1,9 @@
 cask "vew" do
-  version "0.9.4"
+  version "0.9.8"
 
   # mac-x64 (Intel) was deprecated in the v0.8 series; the cask now ships
   # the arm64 binary to every Mac. Intel users get it via Rosetta 2.
-    sha256 "2893dfcad62fb4a7804980899387003d872ba5054f2940732bb7c13b91279891"
+    sha256 "7f05a8d28efe5444dbdc8e3b2df057337f1bd501c57591939f34d7f83aba45b7"
 
   url "https://downloads.vew.sh/vew-darwin-arm64-#{version}.zip"
   name "vew"
