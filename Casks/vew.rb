@@ -12,7 +12,15 @@ cask "vew" do
 
   livecheck do
     url "https://downloads.vew.sh/sha256sums"
-    regex(/[0-9a-f]{64}\s+\*vew[_-]darwin[_-]arm64[_-]v?(\d+(?:\.\d+)+)\.zip/i)
+    # Match the darwin-arm64 zip line in the sums file. The `*` is the BSD/GNU
+    # `sha256sum -b` binary-mode marker; `*?` makes it optional so the regex
+    # also tolerates plain text-mode sums. Anchoring on literal hyphens
+    # (`vew-darwin-arm64-...`) rejects hypothetical sibling artifacts that use
+    # underscores (e.g. `vew_darwin_arm64_0.9.10.zip`) -- those aren't real
+    # downloads today but the tight match keeps livecheck from pivoting to
+    # them silently. The optional `v?` tolerates a future `vew-darwin-arm64-v1.0.zip`
+    # rename without another cask edit.
+    regex(/[0-9a-f]{64}\s+\*?vew-darwin-arm64-(?:v)?(\d+(?:\.\d+)+)\.zip/i)
   end
 
   app "vew.app"
