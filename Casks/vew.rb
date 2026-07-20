@@ -12,6 +12,23 @@ cask "vew" do
 
   app "vew.app"
 
+  # Tolerate upgrades from a half-installed / manually-removed previous
+  # version. `brew upgrade` errors with "It seems the App source
+  # '/Applications/vew.app' is not there" when the previous install is gone
+  # (user trashed it, antivirus quarantined it, a prior interrupted upgrade
+  # left .app.inProgress around, etc.). Clean BOTH the live target AND any
+  # leftover staging dir before the install/upgrade, so cask sees a clean
+  # slate and proceeds. `preflight` runs before BOTH install AND upgrade;
+  # the `uninstall_*` variants only fire on `brew uninstall --zap`.
+  # No sudo: the homebrew process moves files in /Applications without it,
+  # and a password prompt here would break scripted installs.
+  preflight do
+    system_command "/bin/rm",
+                   args: ["-rf", "#{appdir}/vew.app",
+                          "#{appdir}/vew.app.inProgress"],
+                   must_succeed: false
+  end
+
   # vew is ad-hoc signed, not notarized, so Homebrew's download-quarantine bit
   # trips Gatekeeper -- and `brew upgrade --cask vew` re-applies the bit on EVERY
   # upgrade, not just first install. Strip it after each install/upgrade so the
